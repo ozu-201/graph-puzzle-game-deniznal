@@ -12,7 +12,6 @@ namespace array{
 
     Graph::Graph(int vertexCount) : AbstractGraph(vertexCount){
         edges = new int*[vertexCount];
-        words = nullptr;
         for (int i = 0; i < vertexCount; i++){
             edges[i] = new int[vertexCount];
         }
