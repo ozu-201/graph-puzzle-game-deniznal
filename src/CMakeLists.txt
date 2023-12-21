@@ -1,1 +1,0 @@
-project(graph-puzzle-game-deniznal)
