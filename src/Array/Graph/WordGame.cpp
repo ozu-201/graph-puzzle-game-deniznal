@@ -4,6 +4,11 @@
 
 #include "WordGame.h"
 
+/**
+ * Initializes a word game object and stores graphs of all the 3, 4 and 5 character size words.
+ * @param nameOfDictionary The dictionary that will be used to export words.
+ */
+
 WordGame::WordGame(std::string nameOfDictionary) {
     std::string line;
     std::ifstream file;
@@ -40,6 +45,11 @@ WordGame::WordGame(std::string nameOfDictionary) {
     fiveLenGraph->setWords(fiveLenWords);
 }
 
+/**
+ * Plays the game with the specified words using the breadth first search algorithm. Accesses the graph with the desired word length
+ * @param startingWord
+ * @param endingWord
+ */
 void WordGame::playWithBFS(std::string startingWord, std::string endingWord) {
     array::Graph *chosenGraph = nullptr;
 
@@ -74,4 +84,14 @@ void WordGame::playWithBFS(std::string startingWord, std::string endingWord) {
             break;
         }
     }
+
+    std::vector<bool> bools;
+
+    bools.reserve(chosenGraph->words.size());
+    for (int i = 0; i < chosenGraph->words.size(); i++) {
+        bools.push_back(false);
+    }
+
+    chosenGraph->wordBreadthFirstSearch(bools,startingIndex,endingIndex);
+
 }

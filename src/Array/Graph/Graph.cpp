@@ -2,6 +2,8 @@
 // Created by Olcay Taner YILDIZ on 8.05.2023.
 //
 
+#include <algorithm>
+#include <iostream>
 #include "Graph.h"
 #include "../DisjointSet.h"
 #include "../Queue.h"
@@ -94,6 +96,54 @@ namespace array{
                 }
             }
         }
+    }
+
+    /**
+     * Prints the path between the desired words using Breadth First Search.
+     * @param visited
+     * @param startNode
+     * @param endNode
+     */
+    void Graph::wordBreadthFirstSearch(std::vector<bool> visited, int startNode, int endNode) {
+        int fromNode;
+        Queue queue = Queue(1000);
+        queue.enqueue( Element(startNode));
+        std::vector<std::string> path;
+
+        std::vector<int> parents;
+
+        while (!queue.isEmpty()){
+
+            if (fromNode == endNode) {
+                break;
+            }
+
+            fromNode = queue.dequeue().getData();
+            for (int toNode = 0; toNode < vertexCount; toNode++) {
+                if (edges[fromNode][toNode] > 0) {
+                    if (!visited[toNode]){
+                        visited[toNode] = true;
+                        queue.enqueue( Element(toNode));
+                        parents[toNode] = fromNode;
+                    }
+                }
+            }
+        }
+
+
+
+
+        for (int i = endNode; i != startNode; parents[i]) {
+            path.push_back(words[i]);
+        }
+
+        std::reverse(path.begin(),path.end());
+
+        for (int i = 0; i < path.size(); i++) {
+            std::cout << path[i] << " -> ";
+        }
+
+
     }
 
     Path *Graph::bellmanFord(int source) {

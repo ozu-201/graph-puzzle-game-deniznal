@@ -27,7 +27,7 @@ namespace array{
         int** floydWarshall();
         void prim();
         void setWords(std::vector<std::string> listOfWords);
-
+        void wordBreadthFirstSearch(std::vector<bool> visited, int startNode, int endNode);
         std::vector<std::string> getWords();
 
         void connectWords();
@@ -35,8 +35,6 @@ namespace array{
         void depthFirstSearch(bool* visited, int fromNode) override;
         void breadthFirstSearch(bool* visited, int startNode) override;
         Edge* edgeList(int& edgeCount) override;
-
-
     };
 
 }
