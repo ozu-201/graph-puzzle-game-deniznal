@@ -66,6 +66,13 @@ void WordGame::playWithBFS(std::string startingWord, std::string endingWord) {
         std::cout << "Make sure both inputs are comprised of 3-5 characters.";
     }
 
+    if (checkExists(startingWord) && checkExists(endingWord)) {
+        std::cout << "Valid inputs." << "\n";
+    } else {
+        std::cout << "At least one of the inputs do not exist in the dictionary.";
+        return;
+    }
+
     chosenGraph->connectWords();
 
     int startingIndex = 0;
@@ -85,13 +92,27 @@ void WordGame::playWithBFS(std::string startingWord, std::string endingWord) {
         }
     }
 
-    std::vector<bool> bools;
+    chosenGraph->wordBreadthFirstSearch (startingIndex,endingIndex);
 
-    bools.reserve(chosenGraph->words.size());
-    for (int i = 0; i < chosenGraph->words.size(); i++) {
-        bools.push_back(false);
+}
+
+bool WordGame::checkExists(std::string word) {
+    array::Graph *graph;
+
+    if (word.length() == 3) {
+        graph = this->threeLenGraph;
+    } else if (word.length() == 4) {
+        graph = this->fourLenGraph;
+    } else if (word.length() == 5) {
+        graph = this->fiveLenGraph;
+    } else {
+        return false;
     }
 
-    chosenGraph->wordBreadthFirstSearch(bools,startingIndex,endingIndex);
-
+    for (int i = 0; i < graph->getWords().size(); i++) {
+        if (graph->getWords()[i] == word) {
+            return true;
+        }
+    }
+    return false;
 }

@@ -3,7 +3,6 @@
 //
 
 #include "Graph.h"
-#include "../../Array/DisjointSet.h"
 #include "../Queue.h"
 #include "../../Array/Heap/MinHeap.h"
 
@@ -28,22 +27,6 @@ namespace list {
 
     Graph::~Graph() {
         delete[] edges;
-    }
-
-    void Graph::connectedComponentsDisjointSet() {
-        Edge* edge;
-        int toNode;
-        DisjointSet sets = DisjointSet(vertexCount);
-        for (int fromNode = 0; fromNode < vertexCount; fromNode++){
-            edge = edges[fromNode].getHead();
-            while (edge != nullptr){
-                toNode = edge->getTo();
-                if (sets.findSetRecursive(fromNode) != sets.findSetRecursive(toNode)){
-                    sets.unionOfSets(fromNode, toNode);
-                }
-                edge = edge->getNext();
-            }
-        }
     }
 
     void Graph::depthFirstSearch(bool *visited, int fromNode) {

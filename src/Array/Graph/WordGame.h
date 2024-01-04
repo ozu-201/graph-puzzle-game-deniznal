@@ -20,6 +20,8 @@ public:
     WordGame(std::string nameOfDictionary);
 
     void playWithBFS(std::string startingWord, std::string endingWord);
+
+    bool checkExists(std::string word);
 };
 
 

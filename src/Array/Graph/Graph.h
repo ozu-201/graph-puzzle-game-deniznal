@@ -31,10 +31,14 @@ namespace array{
         std::vector<std::string> getWords();
 
         void connectWords();
+
+        void wordBreadthFirstSearch(int startNode, int endNode);
+
     protected:
         void depthFirstSearch(bool* visited, int fromNode) override;
         void breadthFirstSearch(bool* visited, int startNode) override;
         Edge* edgeList(int& edgeCount) override;
+
     };
 
 }

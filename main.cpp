@@ -6,5 +6,5 @@
 int main() {
     WordGame *wordGame = new WordGame("C:\\Users\\TEMP.OZUN\\CLionProjects\\graph-puzzle-game-deniznal\\english-dictionary.txt");
 
-    wordGame->playWithBFS("but","hat");
+    wordGame->playWithBFS("cot","dog");
 }

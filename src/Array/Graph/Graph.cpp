@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <iostream>
 #include "Graph.h"
-#include "../DisjointSet.h"
 #include "../Queue.h"
 #include "../Heap/Heap.h"
 #include "../Heap/MinHeap.h"
@@ -42,8 +41,16 @@ namespace array{
     void Graph::connectWords() {
         for (int i = 0; i < words.size(); i++) {
             for (int j = 0; j < words.size(); j++) {
-                if (words[i].compare(words[j]) == 1 || words[i].compare(words[j]) == -1) {
+                int charDiff = 0;
+                for (int k = 0; k < words[i].size(); k++) {
+                    if (words[i].at(k) != words[j].at(k)) {
+                        charDiff++;
+                    }
+                }
+
+                if (charDiff == 1) {
                     addEdge(i,j);
+                    //std::cout << "from: " << words[i] << " to: " << words[j] << "\n";
                 }
             }
         }
@@ -55,19 +62,6 @@ namespace array{
 
     void Graph::addEdge(int from, int to, int weight) {
         edges[from][to] = weight;
-    }
-
-    void Graph::connectedComponentDisjointSet() {
-        DisjointSet sets = DisjointSet(vertexCount);
-        for (int fromNode = 0; fromNode < vertexCount; fromNode++){
-            for (int toNode = 0; toNode < vertexCount; toNode++){
-                if (edges[fromNode][toNode] > 0){
-                    if (sets.findSetRecursive(fromNode) != sets.findSetRecursive(toNode)){
-                        sets.unionOfSets(fromNode, toNode);
-                    }
-                }
-            }
-        }
     }
 
     void Graph::depthFirstSearch(bool *visited, int fromNode) {
@@ -104,13 +98,15 @@ namespace array{
      * @param startNode
      * @param endNode
      */
-    void Graph::wordBreadthFirstSearch(std::vector<bool> visited, int startNode, int endNode) {
+    void Graph::wordBreadthFirstSearch(int startNode, int endNode) {
         int fromNode;
         Queue queue = Queue(1000);
         queue.enqueue( Element(startNode));
         std::vector<std::string> path;
+        std::vector<int> parent(words.size(), -1);
+        std::vector<bool> visited(words.size(),false);
 
-        std::vector<int> parents;
+        visited[startNode] = true;
 
         while (!queue.isEmpty()){
 
@@ -124,17 +120,14 @@ namespace array{
                     if (!visited[toNode]){
                         visited[toNode] = true;
                         queue.enqueue( Element(toNode));
-                        parents[toNode] = fromNode;
+                        parent[toNode] = fromNode;
                     }
                 }
             }
         }
 
-
-
-
-        for (int i = endNode; i != startNode; parents[i]) {
-            path.push_back(words[i]);
+        for (int at = endNode; at != -1; at = parent[at]) {
+            path.push_back(words[at]);
         }
 
         std::reverse(path.begin(),path.end());
