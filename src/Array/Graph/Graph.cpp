@@ -8,10 +8,14 @@
 #include "../Queue.h"
 #include "../Heap/Heap.h"
 #include "../Heap/MinHeap.h"
+#include <clocale>
+#pragma execution_character_set("utf-8")
+#include <windows.h>
 
 namespace array{
 
     Graph::Graph(int vertexCount) : AbstractGraph(vertexCount){
+        setlocale(LC_ALL, "Turkish");
         edges = new int*[vertexCount];
         for (int i = 0; i < vertexCount; i++){
             edges[i] = new int[vertexCount];
@@ -39,6 +43,7 @@ namespace array{
     }
 
     void Graph::connectWords() {
+        setlocale(LC_ALL, "Turkish");
         for (int i = 0; i < words.size(); i++) {
             for (int j = 0; j < words.size(); j++) {
                 int charDiff = 0;
@@ -99,6 +104,7 @@ namespace array{
      * @param endNode
      */
     void Graph::wordBreadthFirstSearch(int startNode, int endNode) {
+        setlocale(LC_ALL, "Turkish");
         int fromNode;
         Queue queue = Queue(1000);
         queue.enqueue( Element(startNode));
@@ -131,6 +137,11 @@ namespace array{
         }
 
         std::reverse(path.begin(),path.end());
+
+        if (path.size() < 2) {
+            std::cout << "No path.";
+            return;
+        }
 
         for (int i = 0; i < path.size(); i++) {
             std::cout << path[i] << " -> ";

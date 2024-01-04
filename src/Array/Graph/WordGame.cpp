@@ -3,6 +3,9 @@
 //
 
 #include "WordGame.h"
+#include <clocale>
+#include <windows.h>
+#pragma execution_character_set("utf-8")
 
 /**
  * Initializes a word game object and stores graphs of all the 3, 4 and 5 character size words.
@@ -10,6 +13,7 @@
  */
 
 WordGame::WordGame(std::string nameOfDictionary) {
+    setlocale(LC_ALL, "Turkish");
     std::string line;
     std::ifstream file;
     file.open(nameOfDictionary);
@@ -51,6 +55,7 @@ WordGame::WordGame(std::string nameOfDictionary) {
  * @param endingWord
  */
 void WordGame::playWithBFS(std::string startingWord, std::string endingWord) {
+    setlocale(LC_ALL, "Turkish");
     array::Graph *chosenGraph = nullptr;
 
     if (startingWord.length() != endingWord.length()) {
@@ -97,6 +102,7 @@ void WordGame::playWithBFS(std::string startingWord, std::string endingWord) {
 }
 
 bool WordGame::checkExists(std::string word) {
+    setlocale(LC_ALL, "Turkish");
     array::Graph *graph;
 
     if (word.length() == 3) {
@@ -116,3 +122,4 @@ bool WordGame::checkExists(std::string word) {
     }
     return false;
 }
+
