@@ -55,7 +55,6 @@ namespace array{
 
                 if (charDiff == 1) {
                     addEdge(i,j);
-                    //std::cout << "from: " << words[i] << " to: " << words[j] << "\n";
                 }
             }
         }
@@ -139,13 +138,14 @@ namespace array{
         std::reverse(path.begin(),path.end());
 
         if (path.size() < 2) {
-            std::cout << "No path.";
+            std::cout << "No path."<< "\n";
             return;
         }
 
         for (int i = 0; i < path.size(); i++) {
             std::cout << path[i] << " -> ";
         }
+        std::cout <<"\n";
 
 
     }

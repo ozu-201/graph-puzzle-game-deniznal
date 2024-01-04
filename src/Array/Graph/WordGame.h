@@ -22,6 +22,8 @@ public:
     void playWithBFS(std::string startingWord, std::string endingWord);
 
     bool checkExists(std::string word);
+
+    void playWithDijkstra(std::string startingWord, std::string endingWord);
 };
 
 
